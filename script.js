@@ -1,17 +1,26 @@
-function threeSum(arr, target) {
-// write your code here
-	var sum = 0;
-	var minDiff = Number.MAX_VALUE;;
-	for(var i=0; i<arr.length; i++){
-		for(var j=i; j<=i+2; j++){
-			sum = sum + arr[j];
-		}
-		if(sum<=minDiff){
-			minDiff === sum;
-		}
-	}
-	return minDiff;
-  
-}
+function threeSum(nums, target) {
+  nums.sort((a, b) => a - b); // sort the array in ascending order
 
-module.exports = threeSum;
+  let closestSum = Infinity;
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right];
+
+      if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
+        closestSum = sum;
+      }
+
+      if (sum > target) {
+        right--;
+      } else {
+        left++;
+      }
+    }
+  }
+
+  return closestSum;
+}
